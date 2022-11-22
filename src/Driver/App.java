@@ -10,7 +10,7 @@ class App{
         DBConnection connection = DBConnection.getConnection("dbuser", "password");
 
         InsertProcedure.addPassenger("rupika", "rupika@gmail.com");
-
+              
     }
 }
 

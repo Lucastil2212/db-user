@@ -13,7 +13,7 @@ class MyConnection{
     private String connectionUrl = "";
     private String userName = "";
     private String password = "";
-
+    
     public MyConnection(){
         connectionUrl = 
         "jdbc:sqlserver://localhost;"
