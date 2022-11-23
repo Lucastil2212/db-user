@@ -81,7 +81,7 @@ public class InsertProcedure {
             insertPlane.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            e.printStackTrace();    
             System.out.println(e.toString());
         }
         
