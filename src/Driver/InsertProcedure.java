@@ -13,6 +13,8 @@ public class InsertProcedure {
     private static PreparedStatement insertLocation = null;
     private static PreparedStatement insertRoute = null;
     private static PreparedStatement insertStatus = null;
+    private static PreparedStatement insertBooking = null;
+    private static PreparedStatement insertBookingInfo = null;
 
     public static void createProcedures(Connection con) throws SQLException{    
 
@@ -23,6 +25,8 @@ public class InsertProcedure {
         insertLocation = con.prepareStatement("{call dbo.add_location(?, ?)}");
         insertRoute = con.prepareStatement("{call dbo.add_route(?, ?)}");
         insertStatus = con.prepareStatement("{call dbo.add_status(?, ?)}");
+        insertBooking = con.prepareStatement("{call dbo.add_booking}");
+        insertBookingInfo = con.prepareStatement("{call dbo.add_booking_info}");
     }
 
     public static void addPassenger(String name, String email){
@@ -121,6 +125,37 @@ public class InsertProcedure {
             insertStatus.setString(2, description);
 
             insertStatus.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        
+    }
+
+    public static void addBooking(int schedule_id, String className, String email, String seatNum){
+        try{
+            insertBooking.setInt(1, schedule_id);
+            insertBooking.setString(2, className);
+            insertBooking.setString(3, email);
+            insertBooking.setString(4, seatNum);
+
+            insertBooking.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        
+    }
+
+    public static void addBookingInfo(int schedule_id, String className, float price){
+        try{
+            insertBookingInfo.setInt(1, schedule_id);
+            insertBookingInfo.setString(2, className);
+            insertBookingInfo.setFloat(3, price);
+
+            insertBookingInfo.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
