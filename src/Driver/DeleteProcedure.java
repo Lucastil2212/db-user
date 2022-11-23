@@ -13,24 +13,29 @@ public class DeleteProcedure {
     private static PreparedStatement deleteLocation = null;
     private static PreparedStatement deleteRoute = null;
     private static PreparedStatement deleteStatus = null;
+    private static PreparedStatement deleteBooking = null;
+    private static PreparedStatement deleteBookingInfo = null;
+
 
     public static void createProcedures(Connection con) throws SQLException{    
 
-        deleteSchedule = con.prepareStatement("{call dbo.delete_schedule(?, ?, ?, ?, ?, ?)}");
-        deletePilot = con.prepareStatement("{call dbo.delete_pilot(?, ?)}");
-        deletePlane = con.prepareStatement("{call dbo.delete_plane(?, ?)}");
-        deletePassenger = con.prepareStatement("{call dbo.delete_passenger(?, ?)}");
-        deleteLocation = con.prepareStatement("{call dbo.delete_location(?, ?)}");
-        deleteRoute = con.prepareStatement("{call dbo.delete_route(?, ?)}");
-        deleteStatus = con.prepareStatement("{call dbo.delete_status(?, ?)}");
+        deleteSchedule = con.prepareStatement("{call dbo.delete_schedule(?)}");
+        deletePilot = con.prepareStatement("{call dbo.delete_pilot(?)}");
+        deletePlane = con.prepareStatement("{call dbo.delete_plane(?)}");
+        deletePassenger = con.prepareStatement("{call dbo.delete_passenger(?)}");
+        deleteLocation = con.prepareStatement("{call dbo.delete_location(?)}");
+        deleteRoute = con.prepareStatement("{call dbo.delete_route(?)}");
+        deleteStatus = con.prepareStatement("{call dbo.delete_status(?)}");
+        deleteBooking = con.prepareStatement("{call dbo.delete_booking(?)}");
+        deleteBookingInfo = con.prepareStatement("{call dbo.delete_booking_info(?, ?)}");
+
     }
 
-    public static void addPassenger(String name, String email){
+    public static void removePassenger(String email){
         try{
-            insertPassenger.setString(1, name);
-            insertPassenger.setString(2, email);
+            deletePassenger.setString(1, email);
 
-            insertPassenger.execute();
+            deletePassenger.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -39,17 +44,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addSchedule(int planeId, int routeId, Date startTime, Date endTime, int pilotId, String status){
+    public static void removeSchedule(int planeId){
         try{
-            insertSchedule.setInt(1, planeId);
-            insertSchedule.setInt(2, routeId);
-            insertSchedule.setDate(3, startTime);
-            insertSchedule.setDate(4, endTime);
-            insertSchedule.setInt(5, pilotId);
-            insertSchedule.setString(6, status);
+            deleteSchedule.setInt(1, planeId);
 
-
-            insertSchedule.execute();
+            deleteSchedule.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -58,12 +57,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addPilot(String name, Float salary){
+    public static void removePilot(String name){
         try{
-            insertPilot.setString(1, name);
-            insertPilot.setFloat(2, salary);
+            deletePilot.setString(1, name);
 
-            insertPilot.execute();
+            deletePilot.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -72,13 +70,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addPlane(String model, String manufacturer, int capacity){
+    public static void removePlane(int planeId){
         try{
-            insertPlane.setString(1, model);
-            insertPlane.setString(2, manufacturer);
-            insertPlane.setInt(3, capacity);
+            deletePlane.setInt(1, planeId);
 
-            insertPlane.execute();
+            deletePlane.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();    
@@ -87,12 +83,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addRoute(int start_location, int end_location){
+    public static void removeRoute(int start_location){
         try{
-            insertRoute.setInt(1, start_location);
-            insertRoute.setInt(2, end_location);
+            deleteRoute.setInt(1, start_location);
 
-            insertRoute.execute();
+            deleteRoute.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -101,12 +96,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addLocation(String name, int capacity){
+    public static void removeLocation(String name){
         try{
-            insertLocation.setString(1, name);
-            insertLocation.setInt(3, capacity);
+            deleteLocation.setString(1, name);
 
-            insertLocation.execute();
+            deleteLocation.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -115,12 +109,11 @@ public class DeleteProcedure {
         
     }
 
-    public static void addStatus(String status, String description){
+    public static void removeStatus(String status){
         try{
-            insertStatus.setString(1, status);
-            insertStatus.setString(2, description);
+            deleteStatus.setString(1, status);
 
-            insertStatus.execute();
+            deleteStatus.execute();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -128,5 +121,31 @@ public class DeleteProcedure {
         }
         
     }
-}
+
+        public static void removeBooking(int booking_id){
+        try{
+            deleteBooking.setInt(1, booking_id);
+
+            deleteStatus.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        
+    }
+
+    public static void removeBookingInfo(int schedule_info, String className){
+        try{
+            deleteStatus.setInt(1, schedule_info);
+            deleteBookingInfo.setString(2, className);
+
+            deleteStatus.execute();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        
+    }
 }

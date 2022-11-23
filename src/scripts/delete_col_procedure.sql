@@ -68,3 +68,12 @@ create procedure delete_booking(
 as 
 	delete from booking where booking_id = @booking_id
 	commit transaction;
+
+	go
+
+create procedure delete_plane(
+	@plane_id int
+)
+as 
+	delete from plane where plane_id = @plane_id
+	commit transaction;
