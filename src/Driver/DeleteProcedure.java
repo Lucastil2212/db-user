@@ -1,7 +1,6 @@
 package Driver;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
@@ -27,84 +26,98 @@ public class DeleteProcedure {
         deleteRoute = con.prepareStatement("{call dbo.delete_route(?)}");
         deleteStatus = con.prepareStatement("{call dbo.delete_status(?)}");
         deleteBooking = con.prepareStatement("{call dbo.delete_booking(?)}");
-        deleteBookingInfo = con.prepareStatement("{call dbo.delete_booking_info(?, ?)}");
+        deleteBookingInfo = con.prepareStatement("{call dbo.delete_boooking_info(?, ?)}");
 
     }
 
     public static void removePassenger(String email){
         try{
             deletePassenger.setString(1, email);
-
             deletePassenger.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
         }
         
     }
 
-    public static void removeSchedule(int planeId){
+    public static void removeSchedule(Integer planeId){
         try{
             deleteSchedule.setInt(1, planeId);
 
             deleteSchedule.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-    public static void removePilot(String name){
+    public static void removePilot(Integer pilot_id){
         try{
-            deletePilot.setString(1, name);
+            deletePilot.setInt(1, pilot_id);
 
             deletePilot.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-    public static void removePlane(int planeId){
+    public static void removePlane(Integer planeId){
         try{
             deletePlane.setInt(1, planeId);
 
             deletePlane.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();    
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-    public static void removeRoute(int start_location){
+    public static void removeRoute(Integer route_id){
         try{
-            deleteRoute.setInt(1, start_location);
-
+            deleteRoute.setInt(1, route_id);
             deleteRoute.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-    public static void removeLocation(String name){
+    public static void removeLocation(String airport_name){
         try{
-            deleteLocation.setString(1, name);
-
+            deleteLocation.setString(1, airport_name);
             deleteLocation.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
@@ -114,37 +127,44 @@ public class DeleteProcedure {
             deleteStatus.setString(1, status);
 
             deleteStatus.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-        public static void removeBooking(int booking_id){
+        public static void removeBooking(Integer booking_id){
         try{
             deleteBooking.setInt(1, booking_id);
-
-            deleteStatus.execute();
+            deleteBooking.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }
 
-    public static void removeBookingInfo(int schedule_info, String className){
+    public static void removeBookingInfo(Integer schedule_info, String className){
         try{
-            deleteStatus.setInt(1, schedule_info);
+            deleteBookingInfo.setInt(1, schedule_info);
             deleteBookingInfo.setString(2, className);
-
-            deleteStatus.execute();
+            deleteBookingInfo.execute();
+            System.out.println("Successful delete of record from database");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to delete record from database re-enter record with Correct Information");
+
         }
         
     }

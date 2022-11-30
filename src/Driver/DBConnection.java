@@ -3,6 +3,7 @@ package Driver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnection {
 
@@ -11,7 +12,7 @@ public class DBConnection {
     private DBConnection(String username, String password){
         String connectionUrl = 
         "jdbc:sqlserver://localhost;"
-        + "database=airport; "
+        + "database=FinalProj; "
         + "user=" + username + ";" 
         + "password=" + password +";"
         + "encrypt=true;"
@@ -20,11 +21,13 @@ public class DBConnection {
 
         try{
               connection = DriverManager.getConnection(connectionUrl);
-
               InsertProcedure.createProcedures(connection);
-              System.out.println("CONNECTED");
+              DeleteProcedure.createProcedures(connection);
+              UpdateProcedure.createProcedures(connection);
+              UseCases.createProcedures(connection);
+              System.out.println("You are now connected to the database");
         }catch(Exception e){
-           e.printStackTrace();
+              e.printStackTrace();
         }
 
     }

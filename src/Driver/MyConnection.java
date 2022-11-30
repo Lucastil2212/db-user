@@ -42,16 +42,15 @@ class MyConnection{
         }
     }
 
-    public NonQueryStatement nonNonQueryStatement(){
+    //public NonQueryStatement nonNonQueryStatement(){
 
-    }
+    //}
 
     public void connect(){
   
         try(Connection conn = DriverManager.getConnection(connectionUrl);
         ){
               connection = conn;
-
               System.out.println("CONNECTED");
             //   Statement statement = connection.prepareStatement(password);
         }catch(Exception e){

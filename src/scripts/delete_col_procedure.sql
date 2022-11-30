@@ -1,79 +1,73 @@
- create procedure delete_location(
-	@name varchar(30)
+ create or alter procedure delete_location(
+	@location_id as int
 )
 as 
-		delete from location where name = @name
-	commit transaction;
+	begin
+		delete from location where location_id = @location_id
+	end;
 
-	go
-
-create procedure delete_route(
+create or alter procedure delete_route(
 	@route_id int
 )
 as 
+	begin
 	delete from route where route_id = @route_id
-	commit transaction;
+	end;
 
-	go 
-
-create procedure delete_status(
+create or alter procedure delete_status(
 	@status varchar(20)
 )
 as 
+	begin
 	delete from status where status = @status
-	commit transaction;
+	end;
 
-	go
-
-create procedure delete_pilot(
-	@name varchar(20)
+create or alter procedure delete_pilot(
+	@pilot_id as int
 )
 as 
-	delete from pilot where name = @name
-	commit transaction;
+	begin
+	delete from pilot where pilot_id = @pilot_id
+	end;
 
-		go
-
-create procedure delete_passenger(
+create or alter procedure delete_passenger(
 	@email varchar(25)
 )
 as 
+	begin
 	delete from passenger where email = @email
-	commit transaction;
+	end;
 
-	go
-
-create procedure delete_schedule(
+create or alter procedure delete_schedule(
 	@schedule_id int
 )
 as 
+	begin
 	delete from schedule where schedule_id = @schedule_id
-	commit transaction;
-		
-		go
+	end;
 
-create procedure delete_boooking_info(
+
+create or alter procedure delete_boooking_info(
 	@schedule_id int,
 	@class varchar(20)
 )
 as 
+	begin
 	delete from booking_info where schedule_id = @schedule_id and class = @class
-	commit transaction;
-
-	go
+	end;
 
 create procedure delete_booking(
 	@booking_id int
 )
 as 
+	begin
 	delete from booking where booking_id = @booking_id
-	commit transaction;
+	end;
 
-	go
-
-create procedure delete_plane(
+create or alter procedure delete_plane(
 	@plane_id int
 )
 as 
+	begin
 	delete from plane where plane_id = @plane_id
-	commit transaction;
+	end;

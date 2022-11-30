@@ -10,11 +10,11 @@ BEGIN
 	  start_location_id int NOT NULL,
 	  end_location_id int NOT NULL,
 	  foreign key(start_location_id) references location(location_id) on delete cascade,
-	  foreign key(end_location_id) references location(location_id),
+	  foreign key(end_location_id) references location(location_id) on delete cascade,
 	  primary key(route_id));
 
 	CREATE TABLE status
-	( status varchar(20) ,
+	( status varchar(20)  NOT NULL,
 	  description varchar(50) NOT NULL,
 	  primary key(status));
 
@@ -44,11 +44,12 @@ BEGIN
 	  start_time datetime NOT NULL,
 	  end_time datetime NOT NULL,
 	  pilot_id int NOT NULL,
-	  status varchar(20) NOT NULL,
+	  status varchar(20),
 	  primary key(schedule_id),
 	  foreign key(plane_id) references plane on delete cascade,
 	  foreign key(route_id) references route on delete cascade,
-	  foreign key(pilot_id) references pilot on delete cascade);
+	  foreign key(pilot_id) references pilot on delete cascade,
+	  foreign key(status) references status on delete SET NULL);
 
 	CREATE TABLE booking_info
 	( schedule_id int,
@@ -62,8 +63,8 @@ BEGIN
 	  schedule_id int NOT NULL,
 	  class varchar(20) NOT NULL check(class in ('Economy', 'Business', 'First Class', 'Premium Economy')),
 	  email varchar(25) NOT NULL,
-	  seat_num varchar(3) NOT NULL,
+	  seat_num varchar(3) NOT NULL UNIQUE,
 	  primary key(booking_id),
-	  foreign key(schedule_id, class) references booking_info on delete cascade on update cascade,
+	  foreign key(schedule_id, class) references booking_info on delete cascade,
 	  foreign key(email) references passenger on delete cascade on update cascade);
   END

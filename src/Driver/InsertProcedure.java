@@ -1,8 +1,8 @@
 package Driver;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.SQLWarning;
 import java.sql.PreparedStatement;
 
 public class InsertProcedure {
@@ -20,101 +20,121 @@ public class InsertProcedure {
 
         insertSchedule = con.prepareStatement("{call dbo.add_schedule(?, ?, ?, ?, ?, ?)}");
         insertPilot = con.prepareStatement("{call dbo.add_pilot(?, ?)}");
-        insertPlane = con.prepareStatement("{call dbo.add_plane(?, ?)}");
+        insertPlane = con.prepareStatement("{call dbo.add_plane(?, ?,?)}");
         insertPassenger = con.prepareStatement("{call dbo.add_passenger(?, ?)}");
         insertLocation = con.prepareStatement("{call dbo.add_location(?, ?)}");
         insertRoute = con.prepareStatement("{call dbo.add_route(?, ?)}");
         insertStatus = con.prepareStatement("{call dbo.add_status(?, ?)}");
-        insertBooking = con.prepareStatement("{call dbo.add_booking}");
-        insertBookingInfo = con.prepareStatement("{call dbo.add_booking_info}");
+        insertBooking = con.prepareStatement("{call dbo.add_booking(?,?,?,?)}");
+        insertBookingInfo = con.prepareStatement("{call dbo.add_booking_info(?,?,?)}");
     }
 
     public static void addPassenger(String name, String email){
         try{
-            insertPassenger.setString(1, name);
-            insertPassenger.setString(2, email);
+            insertPassenger.setString(1, email);
+            insertPassenger.setString(2, name);
 
             insertPassenger.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addSchedule(int planeId, int routeId, Date startTime, Date endTime, int pilotId, String status){
+    public static void addSchedule(Integer planeId, Integer routeId, String startTime, String endTime, Integer pilotId, String status){
         try{
             insertSchedule.setInt(1, planeId);
             insertSchedule.setInt(2, routeId);
-            insertSchedule.setDate(3, startTime);
-            insertSchedule.setDate(4, endTime);
+            insertSchedule.setString(3, startTime);
+            insertSchedule.setString(4, endTime);
             insertSchedule.setInt(5, pilotId);
             insertSchedule.setString(6, status);
-
-
             insertSchedule.execute();
+            SQLWarning warning = insertSchedule.getWarnings();
+            if(warning == null){
+                System.out.println("Sucessful Insertion of Records.");
+            }
+            else{
+                while (warning != null) {
+                    System.out.println("Failure to Insert: " + warning.getMessage());
+                    warning = warning.getNextWarning();
+                    throw new SQLException();
+                }
+            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addPilot(String name, Float salary){
+    public static void addPilot(String name, Double salary){
         try{
             insertPilot.setString(1, name);
-            insertPilot.setFloat(2, salary);
+            insertPilot.setDouble(2, salary);
 
             insertPilot.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addPlane(String model, String manufacturer, int capacity){
+    public static void addPlane(String model, String manufacturer, Integer capacity){
         try{
             insertPlane.setString(1, model);
             insertPlane.setString(2, manufacturer);
             insertPlane.setInt(3, capacity);
 
             insertPlane.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();    
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addRoute(int start_location, int end_location){
+    public static void addRoute(String start_location, String end_location){
         try{
-            insertRoute.setInt(1, start_location);
-            insertRoute.setInt(2, end_location);
-
+            insertRoute.setString(1, start_location);
+            insertRoute.setString(2, end_location);
             insertRoute.execute();
+            System.out.println("Sucessful Insertion of Records.");
+            //System.out.println("Succesfull Insertion of Records");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addLocation(String name, int capacity){
+    public static void addLocation(String airport_name, Integer capacity){
         try{
-            insertLocation.setString(1, name);
-            insertLocation.setInt(3, capacity);
+            insertLocation.setString(1, airport_name);
+            insertLocation.setInt(2, capacity);
 
             insertLocation.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
@@ -125,15 +145,17 @@ public class InsertProcedure {
             insertStatus.setString(2, description);
 
             insertStatus.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addBooking(int schedule_id, String className, String email, String seatNum){
+    public static void addBooking(Integer schedule_id, String className, String email, String seatNum){
         try{
             insertBooking.setInt(1, schedule_id);
             insertBooking.setString(2, className);
@@ -141,25 +163,29 @@ public class InsertProcedure {
             insertBooking.setString(4, seatNum);
 
             insertBooking.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
 
-    public static void addBookingInfo(int schedule_id, String className, float price){
+    public static void addBookingInfo(Integer schedule_id, String className, Double price){
         try{
             insertBookingInfo.setInt(1, schedule_id);
             insertBookingInfo.setString(2, className);
-            insertBookingInfo.setFloat(3, price);
+            insertBookingInfo.setDouble(3, price);
 
             insertBookingInfo.execute();
+            System.out.println("Sucessful Insertion of Records.");
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.println(e.toString());
+            System.out.println("Failure to enter record into database re-enter record with Correct Information");
         }
         
     }
