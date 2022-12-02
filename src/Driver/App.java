@@ -1,18 +1,43 @@
 package Driver;
 import java.util.Scanner;
 
+import UI.Window;
 
 class App{
     public static Scanner scanner = new Scanner(System.in);
-    public static String username = "generaluser";
+    public static String username = null;
     public static String password = null;
+
     public static void main(String[] args){
-        //System.out.println("Enter Username");
-        //username = scanner.nextLine();
-        //System.out.println("Enter Password");
-        //password = scanner.nextLine();
-        DBConnection connection = DBConnection.getConnection("pilot", "pilot");
+        System.out.println("Enter Username:");
+        username = scanner.nextLine();
+        System.out.println("Enter Password:");
+        password = scanner.nextLine();
+
+        DBConnection connection = DBConnection.getConnection(username, password);
+
         boolean loop = true;
+
+        while(loop){
+            System.out.println("Press 1 to continue using CLI");
+            System.out.println("Press 2 to open GUI");
+
+            Integer selection = scanner.nextInt();
+            
+            if(selection == 1){
+                runCli();
+                loop = false;
+            }else if(selection == 2){
+                new Window();
+                loop = false;
+            }
+        }
+    }
+
+    public static void runCli(){
+        boolean loop = true;
+        
+        
         while(loop){
             System.out.println("What would you like to do today? Select an integer then press enter.");
             System.out.println(" 1. Insert into Database");
@@ -66,7 +91,7 @@ class App{
             App.UseCase5CLI();
         }
         else if(action == 9){
-            App.UseCase6CLI();
+            App.UseCase6CLI();      
         }
         else if(action == 10){
             App.UseCase7CLI();
@@ -336,7 +361,7 @@ class App{
         UseCases.UseCase5();
     }
 
-    public static void UseCase6CLI(){
+    public static void UseCase6(){
         System.out.println("Enter flight price as numeric(6, 2) then press enter");
         Double price = Double.parseDouble(scanner.nextLine());
         System.out.println("Enter plane id as int then press enter");
@@ -354,7 +379,7 @@ class App{
         UseCases.UseCase6(price, planeID, routeID, startTime, endTime, pilotID, status);
     }
 
-    public static void UseCase7CLI(){
+    public static void UseCase7(){
         System.out.println("Enter Start Time as datetime then press enter");
         String startTime = scanner.nextLine();
         System.out.println("Enter End Time as datetime then press enter");
@@ -366,7 +391,7 @@ class App{
         UseCases.UseCase7(startTime, endTime, startLoc, endLoc);
     }
 
-    public static void UseCase8CLI(){
+    public static void UseCase8(){
         System.out.println("Enter number unsafe as int then press enter");
         Integer numUnsafe = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter status then press enter");
@@ -374,7 +399,7 @@ class App{
         UseCases.UseCase8(numUnsafe, status);
     }
 
-    public static void UseCase9CLI(){
+    public static void UseCase9(){
         System.out.println("Enter location A then press enter");
         String locA = scanner.nextLine();
         System.out.println("Enter location B then press enter");
@@ -386,7 +411,7 @@ class App{
         UseCases.UseCase9(locA, locB, status, model);
     }
 
-    public static void UseCase10CLI(){
+    public static void UseCase10(){
         System.out.println("Enter number of ookings as int then press enter");
         Integer numBookings = Integer.parseInt(scanner.nextLine());
         System.out.println("Enter percentage raise as int then press enter");
