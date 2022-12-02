@@ -150,11 +150,9 @@ public class Window implements ActionListener{
         result = new JPanel();
         result.add(ta);
        
-        //     System.out.println(" 4. Enter the start or end location to find the flights");
             startLocation = new JTextField("Enter Start Location"); 
             endLocation = new JTextField("Enter End Location");
 
-                //     System.out.println(" 5. Check incoming flights are under capacity for your airport");
             capacity = new JButton("Check Capacity");
             arrivalTime = new JTextField("Enter arrival time as datetime");
             airport = new JTextField("Enter name of airport");
@@ -164,8 +162,6 @@ public class Window implements ActionListener{
             capacityP.add(airport);
             capacityP.add(arrivalTime);
             capacityP.add(capacity);
-
-        //     System.out.println(" 6. Check for flights within a certain class or price range");
 
         flightClass = new JTextField("Enter the class");
         max = new JTextField("Enter max price as numeric(6,2)");
@@ -193,11 +189,9 @@ public class Window implements ActionListener{
         updradeP.add(sched_id);
         updradeP.add(upgrade);
 
-        //     System.out.println(" 8. Select all the pilots and their flight schedules regardless if they have a schedule or not");
         schedules = new JButton("Get all pilots and their flight schedules");
         schedulesP.add(schedules);
         schedules.addActionListener(this);
-        //     System.out.println(" 9. Creating a flight more expensive than all other flights");
 
         fprice = new JTextField("Enter flight price as numeric(6, 2)");
         planeID = new JTextField("Enter plane id");
@@ -219,7 +213,6 @@ public class Window implements ActionListener{
         createP.add(fstatus);
         createP.add(create);
 
-        //     System.out.println(" 10. Delete all flights between two dates and two airport locations");
         dStartTime = new JTextField("Enter start time as datetime");
         dEndTime = new JTextField("Enter end time as datetime");
 
